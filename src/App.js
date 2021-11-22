@@ -14,6 +14,7 @@ function App() {
   const [games, setGames] = useState([])
   const [profile, setProfile] = useState([])
   const navigate = useNavigate()
+  const [editId, setEditId] = useState(null)
   const [signupshow, setShowSignup] = useState(false)
   const [loginshow, setShowLogin] = useState(false)
 
@@ -83,6 +84,45 @@ function App() {
       console.log(error)
     }
   }
+
+const editGames = e => {
+  const id = e.target.id
+  setEditId(id)
+}
+
+const confirmGames =  async e => {
+  e.preventDefault()
+
+  try {
+  const form = e.target
+
+  const gamesBody = {
+    title: form.elements.title.value,
+    description: form.elements.description.value,
+    image: form.element.image.value,
+    url: form.elements.url.value,
+  }
+  await axios.put(`https://vast-chamber-06347.herokuapp.com/api/v2/games-719/items/${editId}`, gamesBody)
+
+      getGame2()
+      setEditId(null)
+      getProfile()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+const deleteGames = async e => {
+  e.preventDefault()
+  const id = e.target.id 
+  try {
+    await axios.delete(`https://vast-chamber-06347.herokuapp.com/api/v2/games-719/items/${id}`)
+  getGame2()
+} catch (error) {
+  console.log(error.response.data)
+}
+
+
   const signUp = async e => {
     e.preventDefault()
     try {
@@ -150,6 +190,9 @@ function App() {
     handleCloseLogin: handleCloseLogin,
     signupshow: signupshow,
     loginshow: loginshow,
+    editGames:editGames,
+    confirmGames:confirmGames,
+    deleteGames:deleteGames,
   }
   return (
     <GamesContext.Provider value={store}>
@@ -166,4 +209,4 @@ function App() {
   )
 }
 
-export default App
+export default App 
