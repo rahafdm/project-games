@@ -1,13 +1,13 @@
 import { useContext } from "react"
-import { Form, Button, Col } from "react-bootstrap"
+import { Form, Button, Col, Row } from "react-bootstrap"
 import GamesContext from "../ulist/GameContext"
 
 function AddGame() {
-  const { addGame } = useContext(GamesContext)
+  const { addGames } = useContext(GamesContext)
   return (
-    <div className="ms-5" onSubmit={addGame}>
+    <div className="ms-5">
       <h1> ADD GAME </h1>
-      <Form className="mt-5">
+      <Form className="mt-5" onSubmit={addGames}>
         <Form.Group as={Row} className="mb-3">
           <Form.Label column md="4">
             TITLE
@@ -51,8 +51,7 @@ function AddGame() {
         <Form.Group as={Row} className="my-5">
           <Col md={{ span: 10, offset: 2 }}>
             <Button variant="primary" type="submit">
-              {" "}
-              ADD GAME{" "}
+              ADD GAME
             </Button>
           </Col>
         </Form.Group>

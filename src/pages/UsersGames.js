@@ -4,13 +4,14 @@ import UsersCardGames from "../components/UsersCardGames"
 import GamesContext from "../ulist/GameContext"
 
 function UsersGames() {
-  const { usergames } = useContext(GamesContext)
+  const { games } = useContext(GamesContext)
+  console.log(games)
   return (
     <>
-      <h2> Devolbers Games </h2>
+      <h2> Users Games </h2>
       <Container>
         <Row xs={1} sm={2} md={4} className="g-4 mt-4">
-          {usergames.map(usergame => (
+          {games.map(usergame => (
             <UsersCardGames usergame={usergame} />
           ))}
         </Row>

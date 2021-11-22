@@ -1,28 +1,24 @@
 body{
-    background: url("../images/img3.jpg") center/cover no-repeat ;
-    
-
-}
-
-.mybtn button{
-    color: rgb(201, 124, 130);
-
+    background: url("../images/OIP.jpg") ;
+    width: auto;
+    font-family: 'Open Sans';
 }
 
 .text {
     text-align: center;
-    color: burlywood;
+    color: rgb(175, 136, 84);
 }
 
 .title {
-    color: cadetblue;
+    color: rgb(12, 79, 82);
     text-align: center;
 }
 
 .img {
+    display: flex;
     margin-top: 30px;
-    border-radius: 5%;
-    
+    padding-right: 5%;
+    padding-left: 5%;   
 }
 
 .card {
@@ -30,6 +26,8 @@ body{
     transition: inherit 0.5s;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 50%;
+    border-radius: 10%;
+ 
     
 }
 
@@ -39,4 +37,8 @@ body{
 
 .background {
     background-color: ivory;
+}
+
+.navbar {
+    /* background: url("../images/img3.jpg"); */
 }

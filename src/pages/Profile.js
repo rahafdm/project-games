@@ -1,15 +1,19 @@
 import { useContext } from "react"
 import GamesContext from "../ulist/GameContext"
 import { Col, Container, Image, Row } from "react-bootstrap"
+import UsersCardGames from "../components/UsersCardGames"
 
 function Profile() {
-  const { profile } = useContext(GamesContext)
+  const { profile, games } = useContext(GamesContext)
+  if (!profile) {
+    return <h1>Loading...</h1>
+  }
 
   return (
     <Container>
       <Row className="d-flex align-items-center mb-5">
         <Col>
-          <Image src={profile.image} height="250px" />
+          <Image src={profile.photo} height="250px" />
         </Col>
         <Col>
           <h2 className="mb-2">
@@ -19,6 +23,15 @@ function Profile() {
         </Col>
       </Row>
       <Row md={4} sm={2} xs={1}></Row>
+ 
+      <Row>
+        {profile.items.map(usergame => {
+          if(game._id === editId) {
+           return<EditGames games={games} />
+          }
+          return <UsersCardGames inProfile={true} usergame={usergame} /* editGames={editGames} deleteGames={deleteGames} */ />
+        })}
+      </Row> 
     </Container>
   )
 }

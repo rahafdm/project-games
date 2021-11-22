@@ -8,11 +8,15 @@ import Login from "./pages/Login"
 import GamesContext from "./ulist/GameContext"
 import Profile from "./pages/Profile"
 import CarouselItem from "./components/Carousel"
-//import UsersGames from "./pages/UsersGames"
+import Foter from "./components/Foter"
+import WebFont from "webfontloader"
+import AddGame from "./pages/AddGame"
+import UsersGames from "./pages/UsersGames"
 
 function App() {
+  const [games1, setGames1] = useState([])
   const [games, setGames] = useState([])
-  const [profile, setProfile] = useState([])
+  const [profile, setProfile] = useState(null)
   const navigate = useNavigate()
   const [editId, setEditId] = useState(null)
   const [signupshow, setShowSignup] = useState(false)
@@ -43,7 +47,7 @@ function App() {
           "x-rapidapi-key": "8b223af0a2msh4beca3a5c6c4de5p17979djsne4bb57d7b44d",
         },
       })
-      setGames(response.data)
+      setGames1(response.data)
     } catch (error) {
       console.log(error?.response?.data)
     }
@@ -51,8 +55,22 @@ function App() {
 
   const getGame2 = async () => {
     try {
-      const response = await axios.get("https://vast-chamber-06347.herokuapp.com/api/v2/testProject/items")
+      const response = await axios.get("https://vast-chamber-06347.herokuapp.com/api/v2/games-719/items")
       setGames(response.data)
+      console.log(response.data)
+    } catch (error) {
+      console.log(error.response.data)
+    }
+  }
+
+  const getProfile = async () => {
+    try {
+      const response = await axios.get("https://vast-chamber-06347.herokuapp.com/api/user/me", {
+        headers: {
+          Authorization: localStorage.tokenGame,
+        },
+      })
+      setProfile(response.data)
     } catch (error) {
       console.log(error.response.data)
     }
@@ -60,7 +78,15 @@ function App() {
 
   useEffect(() => {
     getGame1()
-    getProfile()
+    getGame2()
+    if (localStorage.tokenGame) {
+      getProfile()
+    }
+    WebFont.load({
+      google: {
+        families: ["Droid Sans", "Chilanka", "Isemin", "Genkaimincho", "Adorn"],
+      },
+    })
   }, [])
 
   const addGames = async e => {
@@ -72,37 +98,41 @@ function App() {
       const gamesBody = {
         title: form.elements.title.value,
         description: form.elements.description.value,
-        image: form.element.image.value,
+        image: form.elements.image.value,
         url: form.elements.url.value,
       }
 
-      await axios.post(`https://vast-chamber-06347.herokuapp.com/api/v2/games-719/items`, gamesBody)
+      await axios.post("https://vast-chamber-06347.herokuapp.com/api/v2/games-719/items", gamesBody, {
+        headers: {
+          Authorization: localStorage.tokenGame,
+        },
+      })
 
       getGame2()
-      navigate("/")
+      navigate("/usergames")
     } catch (error) {
-      console.log(error)
+      console.log(error?.response?.data)
     }
   }
 
-const editGames = e => {
-  const id = e.target.id
-  setEditId(id)
-}
-
-const confirmGames =  async e => {
-  e.preventDefault()
-
-  try {
-  const form = e.target
-
-  const gamesBody = {
-    title: form.elements.title.value,
-    description: form.elements.description.value,
-    image: form.element.image.value,
-    url: form.elements.url.value,
+  const editGames = e => {
+    const id = e.target.id
+    setEditId(id)
   }
-  await axios.put(`https://vast-chamber-06347.herokuapp.com/api/v2/games-719/items/${editId}`, gamesBody)
+
+  const confirmGames = async e => {
+    e.preventDefault()
+
+    try {
+      const form = e.target
+
+      const gamesBody = {
+        title: form.elements.title.value,
+        description: form.elements.description.value,
+        image: form.elements.image.value,
+        url: form.elements.url.value,
+      }
+      await axios.put(`https://vast-chamber-06347.herokuapp.com/api/v2/games-719/items/${editId}`, gamesBody)
 
       getGame2()
       setEditId(null)
@@ -112,16 +142,16 @@ const confirmGames =  async e => {
     }
   }
 
-const deleteGames = async e => {
-  e.preventDefault()
-  const id = e.target.id 
-  try {
-    await axios.delete(`https://vast-chamber-06347.herokuapp.com/api/v2/games-719/items/${id}`)
-  getGame2()
-} catch (error) {
-  console.log(error.response.data)
-}
-
+  const deleteGames = async e => {
+    e.preventDefault()
+    const id = e.target.id
+    try {
+      await axios.delete(`https://vast-chamber-06347.herokuapp.com/api/v2/games-719/items/${id}`)
+      getGame2()
+    } catch (error) {
+      console.log(error.response.data)
+    }
+  }
 
   const signUp = async e => {
     e.preventDefault()
@@ -153,31 +183,19 @@ const deleteGames = async e => {
       const response = await axios.post("https://vast-chamber-06347.herokuapp.com/api/user/auth", userBody)
       const tokenGame = response.data
       localStorage.tokenGame = tokenGame
+      getProfile()
       navigate("/")
     } catch (error) {
       console.log(error.response.data)
     }
   }
 
-
   const logout = () => {
     localStorage.removeItem("tokenGame")
   }
 
-  const getProfile = async () => {
-    try {
-      const response = await axios.get("https://vast-chamber-06347.herokuapp.com/api/user/me", {
-        headers: {
-          Authorization: localStorage.tokenGame,
-        },
-      })
-      setProfile(response.data)
-    } catch (error) {
-      console.log(error.response.data)
-    }
-  }
-
   const store = {
+    games1: games1,
     games: games,
     profile: profile,
     addGames: addGames,
@@ -190,23 +208,25 @@ const deleteGames = async e => {
     handleCloseLogin: handleCloseLogin,
     signupshow: signupshow,
     loginshow: loginshow,
-    editGames:editGames,
-    confirmGames:confirmGames,
-    deleteGames:deleteGames,
+    editGames: editGames,
+    confirmGames: confirmGames,
+    deleteGames: deleteGames,
   }
   return (
     <GamesContext.Provider value={store}>
       <Navbar />
-      <CarouselItem />
       <SignUp />
       <Login />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/addGames" element={<addGames />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/addGames" element={<AddGame />} />
+        <Route path="/" element={<CarouselItem />} />
+        <Route path="/usergames" element={<UsersGames />} />
       </Routes>
+      <Foter />
     </GamesContext.Provider>
   )
 }
 
-export default App 
+export default App

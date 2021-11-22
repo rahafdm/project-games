@@ -4,16 +4,16 @@ import Game2 from "../images/game2.jpg"
 import Game3 from "../images/game3.jpg"
 import Game4 from "../images/game4.jpg"
 import styles from "./mystyle.module.css"
-import Font, {Text} from 'react-font'
+// import Font, {Text} from 'react-font'
 
 function CarouselItem() {
   return (
     <>
       <Row>
         <Col md="8" className="mx-auto mt-5">
-          <Font>
+          {/* <Font>
           <h1 family=""> ---- Tjkbhiuop 4 ---- </h1>
-          </Font>
+          </Font> */}
           
           <Carousel>
             <Carousel.Item>
