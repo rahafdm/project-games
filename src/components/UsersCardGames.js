@@ -1,47 +1,63 @@
-import { useContext, useState } from "react";
-import { Card, Button } from "react-bootstrap";
-import GamesContext from "../ulist/GameContext";
-import ModalItem from "./Modal";
+import { useContext, useState } from "react"
+import { Card, Button, Row, Col } from "react-bootstrap"
+import GamesContext from "../utils/GameContext"
+import ModalItem from "./Modal"
+import styles from "./mystyle.module.css"
 
+function UsersCardGames(props) {
+  const { usergame, inProfile } = props
+  const [show, setshow] = useState(false)
+  const { deleteGames } = useContext(GamesContext)
 
-function UsersCardGames (props) {
-    const { usergame ,inProfile } = props
-    const [ show , setshow ] = useState(false)
-    const {deleteGames} = useContext(GamesContext)
+  const handleClose = () => {
+    setshow(false)
+  }
 
-    const handleClose = () => {
-      setshow (false)
-    }
-    
-    const handleOpen = () => {
-      setshow(true)
-    }
-    return ( 
-        <>
-        <Card style={{ width: "18rem" }}>
-        <Card.Img variant="top" src={usergame.image} />
-        <Card.Body>
-          <Card.Title>{usergame.title}</Card.Title>
-          <Card.Text>{usergame.description}</Card.Text>
-          
-          {inProfile ? (
-            <>
-            <Button variant="info" onClick={handleOpen} >
-             EDIT
-            </Button>
-            <Button className="ms-2" variant="danger" onClick={deleteGames}> Delete </Button>
-            </>
-          ) : ( <Button href={usergame.url} variant="primary">
-          PLAY THIS GAME!
-        </Button> )}
+  const handleOpen = () => {
+    setshow(true)
+  }
+  return (
+    <>
+      <Col>
+        <Card
+        
+          style={{
+            width: "25rem",
+            backgroundColor: "rgb(190, 199, 211)",
+            borderRadius: "10px",
+            fontFamily: "Isemin",
+            marginRight: "10px",
+            
+          }}
+        >
+          <Card.Img style={{ borderRadius: "15px", marginTop: "10px" }} variant="top" src={usergame.image} />
+          <Card.Body>
+            <Card.Title className={styles.title}>{usergame.title}</Card.Title>
+            <Card.Text className={styles.text}>{usergame.description}</Card.Text>
 
-        </Card.Body>
-      </Card>
-      <ModalItem show={show} handleClose={handleClose} />
-        </>
-     )
+            {inProfile ? (
+              <>
+                <Button variant="info" onClick={handleOpen}>
+                  EDIT
+                </Button>
+                <Button className="ms-2" variant="danger" onClick={() => deleteGames(usergame._id)}>
+                  {" "}
+                  Delete{" "}
+                </Button>
+              </>
+            ) : (
+              <Row>
+                <Button href={usergame.url} target="_blank" variant="outline-dark">
+                  PLAY THIS GAME!
+                </Button>
+              </Row>
+            )}
+          </Card.Body>
+        </Card>
+        <ModalItem show={show} handleClose={handleClose} usergame={usergame} />
+      </Col>
+    </>
+  )
 }
 
-export
-
-default  UsersCardGames;
+export default UsersCardGames

@@ -1,44 +1,47 @@
-body{
-    background: url("../images/OIP.jpg") ;
-    width: auto;
-    font-family: 'Open Sans';
+@import url('https://fonts.googleapis.com/css2?family=Comforter+Brush&display=swap');
+
+
+body {
+    font-family: 'Comforter Brush', cursive;
+    background: url("../images/n.jpg");
+}
+
+.background {
+    color: rgba(179, 208, 241, 0.616);
+    opacity: 30px;
 }
 
 .text {
     text-align: center;
-    color: rgb(175, 136, 84);
+    color: rgb(134, 103, 81);
 }
 
 .title {
-    color: rgb(12, 79, 82);
+    color: black;
+    text-align: center;
+
+}
+
+.title2 {
+    color: rgba(95, 181, 184, 0.747);
     text-align: center;
 }
 
-.img {
-    display: flex;
-    margin-top: 30px;
-    padding-right: 5%;
-    padding-left: 5%;   
-}
-
-.card {
-    display: flex;
-    transition: inherit 0.5s;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 50%;
-    border-radius: 10%;
- 
-    
-}
-
-.card:hover {
-    transform: translateY(-10px);
-}
-
-.background {
-    background-color: ivory;
-}
-
 .navbar {
-    /* background: url("../images/img3.jpg"); */
+    background: url("../images/1.png");
+    opacity: 50%;
+    color: ghostwhite;
+
+}
+
+.item {
+    display: block;
+    width: 100%;
+    border-radius: 50px;
+}
+
+.brand {
+    font-family: 'Comforter Brush', cursive;
+    color: gainsboro;
+    font-size: 25px;
 }

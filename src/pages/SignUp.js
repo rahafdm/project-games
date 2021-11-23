@@ -1,6 +1,6 @@
 import { useContext } from "react"
 import { Form, Col, Row, Button, Modal } from "react-bootstrap"
-import GamesContext from "../ulist/GameContext"
+import GamesContext from "../utils/GameContext"
 
 function SignUp() {
   const { signUp, signupshow, handleCloseSignup, handleOpenLogin } = useContext(GamesContext)

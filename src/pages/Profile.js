@@ -1,10 +1,10 @@
 import { useContext } from "react"
-import GamesContext from "../ulist/GameContext"
+import GamesContext from "../utils/GameContext"
 import { Col, Container, Image, Row } from "react-bootstrap"
 import UsersCardGames from "../components/UsersCardGames"
 
 function Profile() {
-  const { profile, games } = useContext(GamesContext)
+  const { profile, deleteGames, editGames } = useContext(GamesContext)
   if (!profile) {
     return <h1>Loading...</h1>
   }
@@ -23,15 +23,12 @@ function Profile() {
         </Col>
       </Row>
       <Row md={4} sm={2} xs={1}></Row>
- 
+
       <Row>
         {profile.items.map(usergame => {
-          if(game._id === editId) {
-           return<EditGames games={games} />
-          }
-          return <UsersCardGames inProfile={true} usergame={usergame} /* editGames={editGames} deleteGames={deleteGames} */ />
+          return <UsersCardGames inProfile={true} usergame={usergame} editGames={editGames} deleteGames={deleteGames} />
         })}
-      </Row> 
+      </Row>
     </Container>
   )
 }

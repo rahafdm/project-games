@@ -1,6 +1,6 @@
 import { useContext } from "react"
 import { Form, Col, Row, Button, Modal, } from "react-bootstrap"
-import GamesContext from "../ulist/GameContext"
+import GamesContext from "../utils/GameContext"
 
 function Login() {
   const { login, loginshow, handleCloseLogin } = useContext(GamesContext)
@@ -13,7 +13,7 @@ function Login() {
         
         }}>
         <Modal.Header closeButton>
-          <Modal.Title> SIGN UP </Modal.Title>
+          <Modal.Title> LOGIN </Modal.Title>
         </Modal.Header>
         <Modal.Body>
          

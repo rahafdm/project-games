@@ -1,10 +1,11 @@
 import { useContext } from "react"
 import { Form, Modal, Button } from "react-bootstrap"
-import GamesContext from "../utils/GamesContext"
+import GamesContext from "../utils/GameContext"
 
 function ModalItem(props) {
   const { show, handleClose, usergame } = props
   const { confirmGames } = useContext(GamesContext)
+  
 
   return (
     <Modal show={show} onHide={handleClose} centered>

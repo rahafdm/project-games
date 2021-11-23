@@ -1,6 +1,6 @@
 import { useContext } from "react"
 import { Form, Button, Col, Row } from "react-bootstrap"
-import GamesContext from "../ulist/GameContext"
+import GamesContext from "../utils/GameContext"
 
 function AddGame() {
   const { addGames } = useContext(GamesContext)

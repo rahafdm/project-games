@@ -5,9 +5,8 @@ import Navbar from "./components/Navbar"
 import Home from "./pages/Home"
 import SignUp from "./pages/SignUp"
 import Login from "./pages/Login"
-import GamesContext from "./ulist/GameContext"
+import GamesContext from "./utils/GameContext"
 import Profile from "./pages/Profile"
-import CarouselItem from "./components/Carousel"
 import Foter from "./components/Foter"
 import WebFont from "webfontloader"
 import AddGame from "./pages/AddGame"
@@ -17,10 +16,10 @@ function App() {
   const [games1, setGames1] = useState([])
   const [games, setGames] = useState([])
   const [profile, setProfile] = useState(null)
-  const navigate = useNavigate()
   const [editId, setEditId] = useState(null)
   const [signupshow, setShowSignup] = useState(false)
   const [loginshow, setShowLogin] = useState(false)
+  const navigate = useNavigate()
 
   const handleOpenLogin = () => {
     setShowLogin(true)
@@ -31,7 +30,6 @@ function App() {
   }
 
   const handleOpenSignup = () => {
-    console.log("ertyui")
     setShowSignup(true)
   }
 
@@ -72,7 +70,7 @@ function App() {
       })
       setProfile(response.data)
     } catch (error) {
-      console.log(error.response.data)
+      console.log(error)
     }
   }
 
@@ -109,6 +107,7 @@ function App() {
       })
 
       getGame2()
+      getProfile()
       navigate("/usergames")
     } catch (error) {
       console.log(error?.response?.data)
@@ -120,7 +119,7 @@ function App() {
     setEditId(id)
   }
 
-  const confirmGames = async e => {
+  const confirmGames = async (e, editId) => {
     e.preventDefault()
 
     try {
@@ -132,7 +131,11 @@ function App() {
         image: form.elements.image.value,
         url: form.elements.url.value,
       }
-      await axios.put(`https://vast-chamber-06347.herokuapp.com/api/v2/games-719/items/${editId}`, gamesBody)
+      await axios.put(`https://vast-chamber-06347.herokuapp.com/api/v2/games-719/items/${editId}`, gamesBody, {
+        headers: {
+          Authorization: localStorage.tokenGame,
+        },
+      })
 
       getGame2()
       setEditId(null)
@@ -142,12 +145,15 @@ function App() {
     }
   }
 
-  const deleteGames = async e => {
-    e.preventDefault()
-    const id = e.target.id
+  const deleteGames = async id => {
     try {
-      await axios.delete(`https://vast-chamber-06347.herokuapp.com/api/v2/games-719/items/${id}`)
+      await axios.delete(`https://vast-chamber-06347.herokuapp.com/api/v2/games-719/items/${id}`, {
+        headers: {
+          Authorization: localStorage.tokenGame,
+        },
+      })
       getGame2()
+      getProfile()
     } catch (error) {
       console.log(error.response.data)
     }
@@ -211,6 +217,7 @@ function App() {
     editGames: editGames,
     confirmGames: confirmGames,
     deleteGames: deleteGames,
+    editId: editId,
   }
   return (
     <GamesContext.Provider value={store}>
@@ -221,7 +228,6 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/addGames" element={<AddGame />} />
-        <Route path="/" element={<CarouselItem />} />
         <Route path="/usergames" element={<UsersGames />} />
       </Routes>
       <Foter />

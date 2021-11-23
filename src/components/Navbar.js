@@ -1,30 +1,35 @@
 import { useContext } from "react"
 import { Container, Nav, Navbar } from "react-bootstrap"
 import { Link } from "react-router-dom"
-import GamesContext from "../ulist/GameContext"
+import GamesContext from "../utils/GameContext"
 import styles from "./mystyle.module.css"
+// import { IoLogoGameControllerA } from "react-icons/cg";
+//import { BiGame } from "react-icons/bi";
+
 
 function NavbarItem() {
-const { handleOpenSignup, handleOpenLogin, logout } = useContext(GamesContext)
+  const { handleOpenSignup, handleOpenLogin, logout } = useContext(GamesContext)
   return (
     <>
-
-      <Navbar className={styles.navbar} style={{fontFamily: 'Adorn Smooth'}} collapseOnSelect expand="lg" bg="light" variant="light">
+      <Navbar className={styles.navbar} collapseOnSelect expand="lg" bg="light" variant="dark">
         <Container>
-          <Navbar.Brand style={{fontSize: "25px"}} > Games </Navbar.Brand>
+          <Navbar.Brand className={styles.brand} style={{ fontSize: "40px" }}>
+            {" "}
+             Games{" "}
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
               <Link to="/" className="nav-link">
-                Games by Devolbers
+                Games by Devolbers 
               </Link>
               {localStorage.tokenGame ? (
                 <Nav className="me-auto">
                   <Link to="/usergames" className="nav-link">
                     Game by Users
                   </Link>
-                  <Link to="/addGames" className="nav-link" >
-                  ADD GAMES
+                  <Link to="/addGames" className="nav-link">
+                    ADD GAMES
                   </Link>
                 </Nav>
               ) : null}
