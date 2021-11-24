@@ -2,6 +2,7 @@ import { useContext } from "react"
 import GamesContext from "../utils/GameContext"
 import { Col, Container, Image, Row } from "react-bootstrap"
 import UsersCardGames from "../components/UsersCardGames"
+import styles from "../components/mystyle.module.css"
 
 function Profile() {
   const { profile, deleteGames, editGames } = useContext(GamesContext)
@@ -11,15 +12,15 @@ function Profile() {
 
   return (
     <Container>
-      <Row className="d-flex align-items-center mb-5">
-        <Col>
-          <Image src={profile.photo} height="250px" />
+      <Row className="d-flex align-items-center mb-5 mt-5">
+        <Col md="3">
+          <Image className={styles.img} src={profile.photo}/>
         </Col>
         <Col>
-          <h2 className="mb-2">
+          <h2 className={styles.title4}>
             {profile.firstName} {profile.lastName}
           </h2>
-          <p className="text-muted">{profile.email}</p>
+          <p className={styles.title4}>{profile.email}</p>
         </Col>
       </Row>
       <Row md={4} sm={2} xs={1}></Row>

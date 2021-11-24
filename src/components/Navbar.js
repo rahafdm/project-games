@@ -11,6 +11,7 @@ function NavbarItem() {
   const { handleOpenSignup, handleOpenLogin, logout } = useContext(GamesContext)
   return (
     <>
+    
       <Navbar className={styles.navbar} collapseOnSelect expand="lg" bg="light" variant="dark">
         <Container>
           <Navbar.Brand className={styles.brand} style={{ fontSize: "40px" }}>
@@ -29,7 +30,7 @@ function NavbarItem() {
                     Game by Users
                   </Link>
                   <Link to="/addGames" className="nav-link">
-                    ADD GAMES
+                    Add Games
                   </Link>
                 </Nav>
               ) : null}
