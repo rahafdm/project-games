@@ -11,7 +11,7 @@ function Home() {
   return (
     <>
       <CarouselGames />
-      <h2 className={styles.title2}> Devolbers Games </h2>
+      <h2 className={styles.title3}> Devolbers Games </h2>
       <Container className="m-10">
         <Row xs={1} sm={2} md={3} className="g-4 mt-4">
           {games1.map(game => (
