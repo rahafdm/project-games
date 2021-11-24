@@ -41,8 +41,8 @@ function UsersCardGames(props) {
                   EDIT
                 </Button>
                 <Button className="ms-2" variant="danger" onClick={() => deleteGames(usergame._id)}>
-                  {" "}
-                  Delete{" "}
+              
+                  Delete
                 </Button>
               </>
             ) : (
